@@ -6,7 +6,7 @@ class ConsumerWrapper {
   private consumer?: Consumer;
 
   async connect(client: Kafka) {
-    this.consumer = client.consumer();
+    this.consumer = client.consumer({ groupId: 'expiration-services' });
     await this.consumer.connect();
   }
 
@@ -14,7 +14,10 @@ class ConsumerWrapper {
     if (!this.consumer) {
       throw new Error('Consumer not connected yet!');
     }
-    this.consumer.subscribe({ topic: 'order.created', fromBeginning: true });
+    this.consumer.subscribe({
+      topic: 'order.created',
+      fromBeginning: true,
+    });
     this.consumer.run({
       eachMessage: async ({ message }) => {
         const orderCreatedData = OrderCreatedEvent.decode(message.value!);
