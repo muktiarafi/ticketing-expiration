@@ -3,12 +3,15 @@ import { producerWrapper } from './events/producer/producer-wrapper';
 import { consumerWrapper } from './events/consumer/consumer-wrapper';
 
 const run = async () => {
-  const kafka = new Kafka({
-    brokers: [`${process.env.BROKER_HOST}:${process.env.BROKER_PORT}`],
+  const kafkaProducer = new Kafka({
+    brokers: [`${process.env.PRODUCER_HOST}:${process.env.PRODUCER_PORT}`],
+  });
+  const kafkaConsumer = new Kafka({
+    brokers: [`${process.env.CONSUMER_HOST}:${process.env.CONSUMER_PORT}`],
   });
 
-  await producerWrapper.connect(kafka);
-  await consumerWrapper.connect(kafka);
+  await producerWrapper.connect(kafkaProducer);
+  await consumerWrapper.connect(kafkaConsumer);
   await consumerWrapper.run();
 };
 
