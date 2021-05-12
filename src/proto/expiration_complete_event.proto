@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+message ExpirationCompleteEvent {
+    int64 order_id = 1;
+}
