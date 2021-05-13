@@ -15,7 +15,7 @@ class ConsumerWrapper {
       throw new Error('Consumer not connected yet!');
     }
     this.consumer.subscribe({
-      topic: 'order.created',
+      topic: 'order-created',
       fromBeginning: true,
     });
     this.consumer.run({
