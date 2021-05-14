@@ -18,12 +18,14 @@ class ConsumerWrapper {
       topic: 'order-created',
       fromBeginning: true,
     });
-    this.consumer.run({
+    await this.consumer.run({
       eachMessage: async ({ message }) => {
         const orderCreatedData = OrderCreatedEvent.decode(message.value!);
         const delay =
           new Date(orderCreatedData.expiresAt).getTime() - new Date().getTime();
+
         console.log('received event from topic:', 'order-created');
+        console.log('current offset:', message.offset);
         console.log('current delay', delay);
 
         await expirationQueue.add(
