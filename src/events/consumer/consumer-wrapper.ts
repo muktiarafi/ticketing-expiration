@@ -23,6 +23,7 @@ class ConsumerWrapper {
         const orderCreatedData = OrderCreatedEvent.decode(message.value!);
         const delay =
           new Date(orderCreatedData.expiresAt).getTime() - new Date().getTime();
+        console.log('received event from topic:', 'order-created');
         console.log('current delay', delay);
 
         await expirationQueue.add(

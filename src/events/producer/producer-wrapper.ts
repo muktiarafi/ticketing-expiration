@@ -12,6 +12,7 @@ class ProducerWrapper {
     if (!this.producer) {
       throw new Error('Producer not connected yet!');
     }
+    console.log('publishing to topic:', topic);
     await this.producer.send({
       acks: 1,
       topic,
