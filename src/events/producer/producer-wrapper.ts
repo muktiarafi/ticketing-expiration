@@ -12,7 +12,8 @@ class ProducerWrapper {
     if (!this.producer) {
       throw new Error('Producer not connected yet!');
     }
-    this.producer.send({
+    await this.producer.send({
+      acks: 1,
       topic,
       messages: [{ value: message }],
     });

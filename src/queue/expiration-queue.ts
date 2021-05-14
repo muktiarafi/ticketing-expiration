@@ -20,5 +20,5 @@ expirationQueue.process(async (job) => {
     expirationCompleteData
   ).finish() as Buffer;
 
-  producerWrapper.produce('expiration-complete', buf);
+  await producerWrapper.produce('expiration-complete', buf);
 });
